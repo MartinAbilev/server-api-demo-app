@@ -4,10 +4,29 @@ import React from "react";
 import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import App from "../src/App";
+import path from 'path';
+
 
 const app = express();
 
-app.get("/*", (req, res) => {
+app.get("/main.js", (req, res) =>
+{
+  res.send({})
+});
+
+app.get("/favicon.ico", (req, res) =>
+{
+  const fileDirectory = path.resolve(__dirname, '.', 'public');
+
+  res.sendFile('favicon.ico', {root: fileDirectory}, (err) => {
+    res.end();
+
+    if (err) throw(err);
+  });
+});
+
+app.get("/*", (req, res) =>
+{
   const entryPoint = ["/main.js"];
 
   const { pipe, abort: _abort } = ReactDOMServer.renderToPipeableStream(

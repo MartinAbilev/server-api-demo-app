@@ -6,7 +6,8 @@ const HomeModule = React.lazy(() => {
   );
 });
 
-const Home = () => {
+const Home = () => {  console.log('Home use server')
+
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <HomeModule />
